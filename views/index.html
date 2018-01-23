@@ -58,19 +58,14 @@
               .done(function(data) {
                   if(data.length > 0) {
                     data.forEach(function(element, index) {
-                      names.push(element.name);
-                      emails.push(element.email);
-                      phones.push(element.phone);
-                      //data[index] = AntiXSS.sanitizeInput(JSON.stringify(element))
+                      names.push(AntiXSS.sanitizeInput(JSON.stringify(element.name)));
+                      emails.push(AntiXSS.sanitizeInput(JSON.stringify(element.email)));
+                      phones.push(AntiXSS.sanitizeInput(JSON.stringify(element.phone)));
                     });
-                    $('#databaseNames').html("Database contents: " + names + emails + phones);
                   }
               });
+              return (names, emails, phones)
           }
-
-          //Call getNames on page load.
-          getNames();
-
 
     </script>
 </body>
