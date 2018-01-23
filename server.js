@@ -19,13 +19,19 @@ var mydb;
 */
 app.post("/api/visitors", function (request, response) {
   var userName = request.body.name;
+  var userEmail = request.body.email;
+  var userPhone = request.body.phone
   if(!mydb) {
     console.log("No database.");
     response.send("Hello " + userName + "!");
     return;
   }
   // insert the username as a document
-  mydb.insert({ "name" : userName }, function(err, body, header) {
+  mydb.insert({
+                "name" : userName,
+                "email" : userEmail,
+                "phone" : userPhone
+              }, function(err, body, header) {
     if (err) {
       return console.log('[mydb.insert] ', err.message);
     }
@@ -45,9 +51,10 @@ app.post("/api/visitors", function (request, response) {
  * @return An array of all the visitor names
  */
 app.get("/api/visitors", function (request, response) {
-  var names = [];
+  var people = [];
+  // In case DB doesn't load
   if(!mydb) {
-    response.json(names);
+    response.json(people);
     return;
   }
 
@@ -55,9 +62,9 @@ app.get("/api/visitors", function (request, response) {
     if (!err) {
       body.rows.forEach(function(row) {
         if(row.doc.name)
-          names.push(row.doc.name);
+          people.push(row.doc);
       });
-      response.json(names);
+      response.json(people);
     }
   });
 });

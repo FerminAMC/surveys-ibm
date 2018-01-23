@@ -49,15 +49,21 @@
             }
         });
 
-        //Retreive all the visitors from the database
+        //Retreive all people from the database
         function getNames(){
+          names = [];
+          emails = [];
+          phones = [];
           $.get("./api/visitors")
               .done(function(data) {
                   if(data.length > 0) {
                     data.forEach(function(element, index) {
-                      data[index] = AntiXSS.sanitizeInput(element)
+                      names.push(element.name);
+                      emails.push(element.email);
+                      phones.push(element.phone);
+                      //data[index] = AntiXSS.sanitizeInput(JSON.stringify(element))
                     });
-                    $('#databaseNames').html("Database contents: " + JSON.stringify(data));
+                    $('#databaseNames').html("Database contents: " + names + emails + phones);
                   }
               });
           }
