@@ -9,6 +9,7 @@
 
     <!-- Bootstrap -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/validate.js/0.12.0/validate.min.js"></script>
     <link href="styles.css" rel="stylesheet">
 </head>
 
@@ -18,13 +19,13 @@
         <form id="nameInput">
             <h2>Por favor, completa tus datos:</h2>
             <div class="form-group">
-                <input type="text" class="form-control form-control-lg" id="name" placeholder="mi nombre">
+                <input type="text" class="form-control form-control-lg" id="name" name="name" placeholder="mi nombre">
             </div>
             <div class="form-group">
-              <input type="email" class="form-control form-control-lg" id="email" placeholder="mi correo">
+              <input type="email" class="form-control form-control-lg" id="email" name="email" placeholder="mi correo">
             </div>
             <div class="form-group">
-                <input type="tel" class="form-control form-control-lg" id="phone" placeholder="mi número celular">
+                <input type="tel" class="form-control form-control-lg" id="phone" name="phone" placeholder="mi número celular">
             </div>
             <button id="submit" type="button" class="btn btn-primary btn-block">Enviar</button>
         </form>
@@ -50,21 +51,58 @@
     <script src="antixss.js" type="text/javascript"></script>
 
     <script>
-        $('#submit').click(function(e) {
+
+        var constraints = {
+            email: {
+                presence: true,
+                email: true,
+                format: {
+                    pattern: /^([\w-.]+@(?!gmail\.com)(?!yahoo\.com)(?!hotmail\.com)([\w-]+.)+[\w-]{2,4})?$/,
+                    flags: "i",
+                    message: "Solo correos empresariales"
+                }
+            },
+            name: {
+                presence: true,
+                length: {
+                    maximum: 30
+                },
+                format: {
+                    pattern: "[a-záéíóú ]+",
+                    flags: "i",
+                    message: "Tu nombre solo puede contener letras"
+                }
+            },
+            phone: {
+                format: {
+                    pattern: "\\d{10}",
+                    message: "Escribe tu número celular a 10 dígitos"
+                }
+            }
+
+        }
+
+        function handleFormSubmit() {
+            var errors = validate($('#nameInput'), constraints);
+            if (errors) return;
             var name = $('#name').val();
             var phone = $('#phone').val();
-            var email = $('#email').val()
+            var email = $('#email').val();
             $.ajax({
-				  method: "POST",
-				  url: "./api/visitors",
-				  contentType: "application/json",
-				  data: JSON.stringify({name: name, phone: phone, email: email })
-				})
+                    method: "POST",
+                    url: "./api/visitors",
+                    contentType: "application/json",
+                    data: JSON.stringify({name: name, phone: phone, email: email })
+                })
                 .done(function(data) {
                     $('#response').html(AntiXSS.sanitizeInput(data));
                     $('#nameInput').hide();
                     getPeople();
                 });
+        }
+
+        $('#submit').click(function(e) {
+            handleFormSubmit();
         });
 
         //Retreive all people from the database
