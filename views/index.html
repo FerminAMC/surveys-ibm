@@ -51,21 +51,22 @@
 
         //Retreive all people from the database
         function getPeople(){
-          names = [];
-          emails = [];
-          phones = [];
           $.get("./api/visitors")
               .done(function(data) {
                   if(data.length > 0) {
+                    names = [];
+                    emails = [];
+                    phones = [];
                     data.forEach(function(element, index) {
-                      names.push(AntiXSS.sanitizeInput(JSON.stringify(element.name)));
-                      emails.push(AntiXSS.sanitizeInput(JSON.stringify(element.email)));
-                      phones.push(AntiXSS.sanitizeInput(JSON.stringify(element.phone)));
+                      names.push(AntiXSS.sanitizeInput(JSON.stringify(element.name));
+                      emails.push(AntiXSS.sanitizeInput(JSON.stringify(element.email));
+                      phones.push(AntiXSS.sanitizeInput(JSON.stringify(element.phone));
                     });
                   }
               });
-              return (names, emails, phones)
+            return(names, emails, phones);
           }
+
 
     </script>
 </body>
