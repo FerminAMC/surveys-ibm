@@ -77,7 +77,8 @@ app.get("/api/get_people", function (request, response) {
 
 // Downloads people.csv
 app.get('api/download_csv', function(req, res){
-	res.download(__dirname + '/people.csv', 'people.csv');
+  var fileName = __dirname + '\/' + "people.csv";
+  res.download(fileName);
 });
 
 // load local VCAP configuration  and service credentials
