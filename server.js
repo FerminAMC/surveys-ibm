@@ -76,7 +76,7 @@ app.get("/api/get_people", function (request, response) {
 });
 
 // Downloads people.csv
-app.get('api/download_csv', function(req, res){
+app.get('/api/download_csv', function(req, res){
   var fileName = __dirname + '\/' + "people.csv";
   res.download(fileName);
 });
