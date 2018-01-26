@@ -1,7 +1,9 @@
 var express = require("express");
 var app = express();
 var cfenv = require("cfenv");
-var bodyParser = require('body-parser')
+var bodyParser = require('body-parser');
+var json2csv = require('json2csv');
+var fs = require('fs');
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -11,16 +13,11 @@ app.use(bodyParser.json())
 
 var mydb;
 
-/* Endpoint to greet and add a new visitor to database.
-* Send a POST request to localhost:3000/api/visitors with body
-* {
-* 	"name": "Bob"
-* }
-*/
-app.post("/api/visitors", function (request, response) {
+// Post user information to the DB
+app.post("/api/add_person", function (request, response) {
   var userName = request.body.name;
   var userEmail = request.body.email;
-  var userPhone = request.body.phone
+  var userPhone = request.body.phone;
   if(!mydb) {
     console.log("No database.");
     response.send("Hello " + userName + "!");
@@ -39,18 +36,9 @@ app.post("/api/visitors", function (request, response) {
   });
 });
 
-/**
- * Endpoint to get a JSON array of all the visitors in the database
- * REST API example:
- * <code>
- * GET http://localhost:3000/api/visitors
- * </code>
- *
- * Response:
- * [ "Bob", "Jane" ]
- * @return An array of all the visitor names
- */
-app.get("/api/visitors", function (request, response) {
+// Returns an array of all the users in the DB
+app.get("/api/get_people", function (request, response) {
+  var json_string_for_csv_conversion = new Array();
   var people = [];
   // In case DB doesn't load
   if(!mydb) {
@@ -60,15 +48,38 @@ app.get("/api/visitors", function (request, response) {
 
   mydb.list({ include_docs: true }, function(err, body) {
     if (!err) {
-      body.rows.forEach(function(row) {
-        if(row.doc.name)
+      body.rows.forEach(function(row, index) {
+        if(row.doc.name){
+          json_string_for_csv_conversion.push(row.doc);
           people.push(row.doc);
+        }
+      });
+      var download_filename = "people.csv";
+      var fields = ['name', 'email', 'phone']; // Column headers
+      json2csv({data: json_string_for_csv_conversion, fields: fields }, function(err, csv) {
+				if (err) console.log(err);
+				fs.writeFile(download_filename, csv, function(err) {
+					if (err) throw err;
+					fs.readdir(__dirname, function (err, files) {
+						if (err)
+							throw err;
+						for (var index in files) {
+							if(files[index] === download_filename)
+								console.log(download_filename + " is present");
+						}
+					});
+				});
       });
       response.json(people);
     }
   });
 });
 
+// Downloads people.csv
+app.get('/api/download_csv', function(req, res){
+  var fileName = __dirname + '\/' + "people.csv";
+  res.download(fileName);
+});
 
 // load local VCAP configuration  and service credentials
 var vcapLocal;
@@ -97,13 +108,13 @@ if (appEnv.services['cloudantNoSQLDB'] || appEnv.getService(/cloudant/)) {
   //database name
   var dbName = 'names_database';
 
-  // Create a new "mydb" database.
+  // Create a new "names_database" database in case it doesn't exist
   cloudant.db.create(dbName, function(err, data) {
     if(!err) //err if database doesn't already exists
       console.log("Created database: " + dbName);
   });
 
-  // Specify the database we are going to use (mydb)...
+  // Specify the database we are going to use (names_database)...
   mydb = cloudant.db.use(dbName);
 }
 
