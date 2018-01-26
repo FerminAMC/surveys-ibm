@@ -81,6 +81,17 @@ app.get('/api/download_csv', function(req, res){
   res.download(fileName);
 });
 
+app.get('/myform', function(req, res){
+    var usuario = req.query.user; //mytext is the name of your input box
+    var password = req.query.pass;
+
+    if (usuario == 'admin' && password == '1234'){
+    res.sendFile(__dirname + '/views/csv.html');
+  }else {
+        res.sendFile(__dirname + '/views/index.html');
+      }
+});
+
 // load local VCAP configuration  and service credentials
 var vcapLocal;
 try {

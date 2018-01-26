@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Hello World</title>
+    <title>Surveys IBM</title>
 
     <!-- Bootstrap -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
@@ -29,9 +29,6 @@
             <button id="submit" type="button" class="btn btn-primary btn-block">Enviar</button>
         </form>
         <!-- Button to test csv download -->
-        <div class="row mb-6">
-          <button id="download_csv" class="btn btn-primary btn-block" type="button"> Download CSV </button>
-        </div>
         <!-- End of test button -->
         <p id="response" class="lead text-center"></p>
         <div class='row mb-3'>
@@ -72,31 +69,6 @@
                     getPeople();
                 });
         });
-
-        $('#download_csv').click(function() {
-          window.open('api/download_csv');
-        });
-
-        //Retreive all people from the database
-        function getPeople() {
-            var names = [];
-            var emails = [];
-            var phones = [];
-          $.get("./api/get_people")
-              .done(function(data) {
-                  if(data.length > 0) {
-                    data.forEach(function(element, index) {
-                      names.push(AntiXSS.sanitizeInput(JSON.stringify(element.name)));
-                      emails.push(AntiXSS.sanitizeInput(JSON.stringify(element.email)));
-                      phones.push(AntiXSS.sanitizeInput(JSON.stringify(element.phone)));
-                    });
-                  }
-              });
-            return(names, emails, phones);
-          }
-
-          getPeople()
-
 
     </script>
 </body>
