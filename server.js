@@ -4,6 +4,21 @@ var cfenv = require("cfenv");
 var bodyParser = require('body-parser');
 var json2csv = require('json2csv');
 var fs = require('fs');
+var nodemailer = require('nodemailer');
+
+//Ejecución del email
+exports.sendEmail = function(req, res){
+    // nodemailer stuff will go here
+};
+
+//Correo de salida del email
+var transporter = nodemailer.createTransport({
+       service: 'Gmail',
+       auth: {
+           user: 'surveysibm@gmail.com',
+           pass: 'IBM33ibm&'
+       }
+});
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -15,9 +30,157 @@ var mydb;
 
 // Post user information to the DB
 app.post("/api/add_person", function (request, response) {
+  var userTema = request.body.tema;
   var userName = request.body.name;
   var userEmail = request.body.email;
   var userPhone = request.body.phone;
+
+  //Enviamos correos segun el tema ingresado en el formulario
+  if (userTema == 'Hybrid Data Management'){
+    //email donde se enviará el correo
+    var mailOptions = {
+       from: 'IBM Surveys <surveysibm@gmail.com>',
+       to: '',
+       subject: 'Datos de cliente - Hybrid Data Management',
+       html: '<h2>Datos del cliente</h2> <p><b>Nombre: </b> '+userName+'</p> <p><b>Correo: </b> '+userEmail+'</p> <p><b>Celular: </b> '+userPhone+'</p> <p>Favor de ponerse en contacto con el cliente a la brevedad</p>'
+     };
+
+    //enviamos el email
+    transporter.sendMail(mailOptions, function(error, info){
+    if (error){
+        console.log("Email no enviado");
+    } else {
+        console.log("Email enviado");
+    }});
+  }
+
+  if (userTema == 'Unified Governance & Integration'){
+    //email donde se enviará el correo
+    var mailOptions = {
+       from: 'IBM Surveys <surveysibm@gmail.com>',
+       to: '',
+       subject: 'Datos de cliente - Unified Governance & Integration',
+       html: '<h2>Datos del cliente</h2> <p><b>Nombre: </b> '+userName+'</p> <p><b>Correo: </b> '+userEmail+'</p> <p><b>Celular: </b> '+userPhone+'</p> <p>Favor de ponerse en contacto con el cliente a la brevedad</p>'
+     };
+
+    //enviamos el email
+    transporter.sendMail(mailOptions, function(error, info){
+    if (error){
+        console.log("Email no enviado");
+    } else {
+        console.log("Email enviado");
+    }});
+  }
+
+  if (userTema == 'Data Science & Business Analytics'){
+    //email donde se enviará el correo
+    var mailOptions = {
+       from: 'IBM Surveys <surveysibm@gmail.com>',
+       to: '',
+       subject: 'Datos de cliente - Data Science & Business Analytics',
+       html: '<h2>Datos del cliente</h2> <p><b>Nombre: </b> '+userName+'</p> <p><b>Correo: </b> '+userEmail+'</p> <p><b>Celular: </b> '+userPhone+'</p> <p>Favor de ponerse en contacto con el cliente a la brevedad</p>'
+     };
+
+    //enviamos el email
+    transporter.sendMail(mailOptions, function(error, info){
+    if (error){
+        console.log("Email no enviado");
+    } else {
+        console.log("Email enviado");
+    }});
+  }
+
+  if (userTema == 'Digital Business Automation'){
+    //email donde se enviará el correo
+    var mailOptions = {
+       from: 'IBM Surveys <surveysibm@gmail.com>',
+       to: '',
+       subject: 'Datos de cliente - Digital Business Automation',
+       html: '<h2>Datos del cliente</h2> <p><b>Nombre: </b> '+userName+'</p> <p><b>Correo: </b> '+userEmail+'</p> <p><b>Celular: </b> '+userPhone+'</p> <p>Favor de ponerse en contacto con el cliente a la brevedad</p>'
+     };
+
+    //enviamos el email
+    transporter.sendMail(mailOptions, function(error, info){
+    if (error){
+        console.log("Email no enviado");
+    } else {
+        console.log("Email enviado");
+    }});
+  }
+
+  if (userTema == 'Integration & Development'){
+    //email donde se enviará el correo
+    var mailOptions = {
+       from: 'IBM Surveys <surveysibm@gmail.com>',
+       to: '',
+       subject: 'Datos de cliente - Integration & Development',
+       html: '<h2>Datos del cliente</h2> <p><b>Nombre: </b> '+userName+'</p> <p><b>Correo: </b> '+userEmail+'</p> <p><b>Celular: </b> '+userPhone+'</p> <p>Favor de ponerse en contacto con el cliente a la brevedad</p>'
+     };
+
+    //enviamos el email
+    transporter.sendMail(mailOptions, function(error, info){
+    if (error){
+        console.log("Email no enviado");
+    } else {
+        console.log("Email enviado");
+    }});
+  }
+
+  if (userTema == 'Management & Platform'){
+    //email donde se enviará el correo
+    var mailOptions = {
+       from: 'IBM Surveys <surveysibm@gmail.com>',
+       to: '',
+       subject: 'Datos de cliente - Management & Platform',
+       html: '<h2>Datos del cliente</h2> <p><b>Nombre: </b> '+userName+'</p> <p><b>Correo: </b> '+userEmail+'</p> <p><b>Celular: </b> '+userPhone+'</p> <p>Favor de ponerse en contacto con el cliente a la brevedad</p>'
+     };
+
+    //enviamos el email
+    transporter.sendMail(mailOptions, function(error, info){
+    if (error){
+        console.log("Email no enviado");
+    } else {
+        console.log("Email enviado");
+    }});
+  }
+
+  if (userTema == 'IBM z Hybrid Cloud'){
+    //email donde se enviará el correo
+    var mailOptions = {
+       from: 'IBM Surveys <surveysibm@gmail.com>',
+       to: '',
+       subject: 'Datos de cliente - IBM z Hybrid Cloud',
+       html: '<h2>Datos del cliente</h2> <p><b>Nombre: </b> '+userName+'</p> <p><b>Correo: </b> '+userEmail+'</p> <p><b>Celular: </b> '+userPhone+'</p> <p>Favor de ponerse en contacto con el cliente a la brevedad</p>'
+     };
+
+    //enviamos el email
+    transporter.sendMail(mailOptions, function(error, info){
+    if (error){
+        console.log("Email no enviado");
+    } else {
+        console.log("Email enviado");
+    }});
+  }
+
+  if (userTema == 'Watson & Cloud Platform'){
+    //email donde se enviará el correo
+    var mailOptions = {
+       from: 'IBM Surveys <surveysibm@gmail.com>',
+       to: '',
+       subject: 'Datos de cliente - Watson & Cloud Platform',
+       html: '<h2>Datos del cliente</h2> <p><b>Nombre: </b> '+userName+'</p> <p><b>Correo: </b> '+userEmail+'</p> <p><b>Celular: </b> '+userPhone+'</p> <p>Favor de ponerse en contacto con el cliente a la brevedad</p>'
+     };
+
+    //enviamos el email
+    transporter.sendMail(mailOptions, function(error, info){
+    if (error){
+        console.log("Email no enviado");
+    } else {
+        console.log("Email enviado");
+    }});
+  }
+
+  //Confirmamos si hay o no base de datos
   if(!mydb) {
     console.log("No database.");
     response.send("Hello " + userName + "!");
@@ -25,6 +188,7 @@ app.post("/api/add_person", function (request, response) {
   }
   // insert the username as a document
   mydb.insert({
+                "tema" : userTema,
                 "name" : userName,
                 "email" : userEmail,
                 "phone" : userPhone
@@ -55,7 +219,7 @@ app.get("/api/get_people", function (request, response) {
         }
       });
       var download_filename = "people.csv";
-      var fields = ['name', 'email', 'phone']; // Column headers
+      var fields = ['tema', 'name', 'email', 'phone']; // Column headers
       json2csv({data: json_string_for_csv_conversion, fields: fields }, function(err, csv) {
 				if (err) console.log(err);
 				fs.writeFile(download_filename, csv, function(err) {

@@ -50,6 +50,7 @@
 
         //Retreive all people from the database
         function getPeople() {
+           var temas = [];
             var names = [];
             var emails = [];
             var phones = [];
@@ -57,13 +58,14 @@
               .done(function(data) {
                   if(data.length > 0) {
                     data.forEach(function(element, index) {
+                      temas.push(AntiXSS.sanitizeInput(JSON.stringify(element.tema)));
                       names.push(AntiXSS.sanitizeInput(JSON.stringify(element.name)));
                       emails.push(AntiXSS.sanitizeInput(JSON.stringify(element.email)));
                       phones.push(AntiXSS.sanitizeInput(JSON.stringify(element.phone)));
                     });
                   }
               });
-            return(names, emails, phones);
+            return(tema, names, emails, phones);
           }
 
           getPeople()
