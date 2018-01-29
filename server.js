@@ -35,6 +35,15 @@ app.post("/api/add_person", function (request, response) {
   var userEmail = request.body.email;
   var userPhone = request.body.phone;
 
+  var str = userEmail;
+
+if (str.includes("@hotmail.com") == true || str.includes("@gmail.com") == true || str.includes("@yahoo.com") == true || str.includes("@outlook.com") == true)
+{
+  console.log("Correo no valido");
+  response.send("Correo no válido. Por favor utiliza tu email corporativo.");
+}
+else {
+  console.log("Correo valido")
   //Enviamos correos segun el tema ingresado en el formulario
   if (userTema == 'Hybrid Data Management'){
     //email donde se enviará el correo
@@ -198,6 +207,8 @@ app.post("/api/add_person", function (request, response) {
     }
     response.send("Hola " + userName + "! Gracias por registrarte.");
   });
+}
+
 });
 
 // Returns an array of all the users in the DB
