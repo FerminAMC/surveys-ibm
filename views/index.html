@@ -46,8 +46,6 @@
             </div>
             <button id="submit" type="button" class="btn btn-primary btn-block">Enviar</button>
         </form>
-        <!-- Button to test csv download -->
-        <!-- End of test button -->
         <p id="response" class="lead text-center"></p>
         <div class='row mb-3'>
             <div class='col text-center'>
@@ -84,7 +82,6 @@
                 .done(function(data) {
                     $('#response').html(AntiXSS.sanitizeInput(data));
                     $('#nameInput').hide();
-                    getPeople();
                 });
         });
 
