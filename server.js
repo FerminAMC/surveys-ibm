@@ -6,6 +6,10 @@ var json2csv = require('json2csv');
 var fs = require('fs');
 var nodemailer = require('nodemailer');
 
+app.use(express.static(__dirname + '/views', {
+  extensions: ['html']
+}));
+
 //Ejecución del email
 exports.sendEmail = function(req, res){
     // nodemailer stuff will go here
@@ -35,12 +39,21 @@ app.post("/api/add_person", function (request, response) {
   var userEmail = request.body.email;
   var userPhone = request.body.phone;
 
+  var str = userEmail;
+
+if (str.includes("@hotmail.com") == true || str.includes("@gmail.com") == true || str.includes("@yahoo.com") == true || str.includes("@outlook.com") == true)
+{
+  console.log("Correo no valido");
+  response.send("Correo no válido. Por favor utiliza tu email corporativo.");
+}
+else {
+  console.log("Correo valido")
   //Enviamos correos segun el tema ingresado en el formulario
   if (userTema == 'Hybrid Data Management'){
     //email donde se enviará el correo
     var mailOptions = {
        from: 'IBM Surveys <surveysibm@gmail.com>',
-       to: '',
+       to: 'julio.cesar.garcia@ibm.com',
        subject: 'Datos de cliente - Hybrid Data Management',
        html: '<h2>Datos del cliente</h2> <p><b>Nombre: </b> '+userName+'</p> <p><b>Correo: </b> '+userEmail+'</p> <p><b>Celular: </b> '+userPhone+'</p> <p>Favor de ponerse en contacto con el cliente a la brevedad</p>'
      };
@@ -198,6 +211,8 @@ app.post("/api/add_person", function (request, response) {
     }
     response.send("Hola " + userName + "! Gracias por registrarte.");
   });
+}
+
 });
 
 // Returns an array of all the users in the DB
