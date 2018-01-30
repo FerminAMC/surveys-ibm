@@ -101,6 +101,7 @@
         }
 
         function handleFormSubmit() {
+            var tema = $('#tema').val();
             var errors = validate($('#nameInput'), constraints);
             if (errors) return;
             var name = $('#name').val();

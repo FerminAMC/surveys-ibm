@@ -38,6 +38,7 @@ app.post("/api/add_person", function (request, response) {
   var userName = request.body.name;
   var userEmail = request.body.email;
   var userPhone = request.body.phone;
+  var registrationDate = new Date();
 
   //Enviamos correos segun el tema ingresado en el formulario
   if (userTema == 'Hybrid Data Management'){
@@ -193,9 +194,10 @@ app.post("/api/add_person", function (request, response) {
   // insert the username as a document
   mydb.insert({
                 "tema" : userTema,
-                "name" : userName,
-                "email" : userEmail,
-                "phone" : userPhone
+                "nombre" : userName,
+                "correo" : userEmail,
+                "celular" : userPhone,
+                "fecha_registro" : registrationDate
               }, function(err, body, header) {
     if (err) {
       return console.log('[mydb.insert] ', err.message);
@@ -217,13 +219,14 @@ app.get("/api/get_people", function (request, response) {
   mydb.list({ include_docs: true }, function(err, body) {
     if (!err) {
       body.rows.forEach(function(row, index) {
-        if(row.doc.name){
+        // Checks if all fields are present, otherwise it just omits that row
+        if(row.doc.nombre && row.doc.tema && row.doc.correo && row.doc.celular && row.doc.fecha_registro){
           json_string_for_csv_conversion.push(row.doc);
           people.push(row.doc);
         }
       });
       var download_filename = "people.csv";
-      var fields = ['tema', 'name', 'email', 'phone']; // Column headers
+      var fields = ['tema', 'nombre', 'correo', 'celular', 'fecha_registro']; // Column headers
       json2csv({data: json_string_for_csv_conversion, fields: fields }, function(err, csv) {
 				if (err) console.log(err);
 				fs.writeFile(download_filename, csv, function(err) {
