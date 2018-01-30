@@ -1,7 +1,28 @@
 var express = require("express");
 var app = express();
 var cfenv = require("cfenv");
-var bodyParser = require('body-parser')
+var bodyParser = require('body-parser');
+var json2csv = require('json2csv');
+var fs = require('fs');
+var nodemailer = require('nodemailer');
+
+app.use(express.static(__dirname + '/views', {
+  extensions: ['html']
+}));
+
+//Ejecución del email
+exports.sendEmail = function(req, res){
+    // nodemailer stuff will go here
+};
+
+//Correo de salida del email
+var transporter = nodemailer.createTransport({
+       service: 'Gmail',
+       auth: {
+           user: 'surveysibm@gmail.com',
+           pass: 'IBM33ibm&'
+       }
+});
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -11,16 +32,159 @@ app.use(bodyParser.json())
 
 var mydb;
 
-/* Endpoint to greet and add a new visitor to database.
-* Send a POST request to localhost:3000/api/visitors with body
-* {
-* 	"name": "Bob"
-* }
-*/
-app.post("/api/visitors", function (request, response) {
+// Post user information to the DB
+app.post("/api/add_person", function (request, response) {
+  var userTema = request.body.tema;
   var userName = request.body.name;
   var userEmail = request.body.email;
-  var userPhone = request.body.phone
+  var userPhone = request.body.phone;
+
+  //Enviamos correos segun el tema ingresado en el formulario
+  if (userTema == 'Hybrid Data Management'){
+    //email donde se enviará el correo
+    var mailOptions = {
+       from: 'IBM Surveys <surveysibm@gmail.com>',
+       to: 'julio.cesar.garcia@ibm.com',
+       subject: 'Datos de cliente - Hybrid Data Management',
+       html: '<h2>Datos del cliente</h2> <p><b>Nombre: </b> '+userName+'</p> <p><b>Correo: </b> '+userEmail+'</p> <p><b>Celular: </b> '+userPhone+'</p> <p>Favor de ponerse en contacto con el cliente a la brevedad</p>'
+     };
+
+    //enviamos el email
+    transporter.sendMail(mailOptions, function(error, info){
+    if (error){
+        console.log("Email no enviado");
+    } else {
+        console.log("Email enviado");
+    }});
+  }
+
+  if (userTema == 'Unified Governance & Integration'){
+    //email donde se enviará el correo
+    var mailOptions = {
+       from: 'IBM Surveys <surveysibm@gmail.com>',
+       to: '',
+       subject: 'Datos de cliente - Unified Governance & Integration',
+       html: '<h2>Datos del cliente</h2> <p><b>Nombre: </b> '+userName+'</p> <p><b>Correo: </b> '+userEmail+'</p> <p><b>Celular: </b> '+userPhone+'</p> <p>Favor de ponerse en contacto con el cliente a la brevedad</p>'
+     };
+
+    //enviamos el email
+    transporter.sendMail(mailOptions, function(error, info){
+    if (error){
+        console.log("Email no enviado");
+    } else {
+        console.log("Email enviado");
+    }});
+  }
+
+  if (userTema == 'Data Science & Business Analytics'){
+    //email donde se enviará el correo
+    var mailOptions = {
+       from: 'IBM Surveys <surveysibm@gmail.com>',
+       to: '',
+       subject: 'Datos de cliente - Data Science & Business Analytics',
+       html: '<h2>Datos del cliente</h2> <p><b>Nombre: </b> '+userName+'</p> <p><b>Correo: </b> '+userEmail+'</p> <p><b>Celular: </b> '+userPhone+'</p> <p>Favor de ponerse en contacto con el cliente a la brevedad</p>'
+     };
+
+    //enviamos el email
+    transporter.sendMail(mailOptions, function(error, info){
+    if (error){
+        console.log("Email no enviado");
+    } else {
+        console.log("Email enviado");
+    }});
+  }
+
+  if (userTema == 'Digital Business Automation'){
+    //email donde se enviará el correo
+    var mailOptions = {
+       from: 'IBM Surveys <surveysibm@gmail.com>',
+       to: '',
+       subject: 'Datos de cliente - Digital Business Automation',
+       html: '<h2>Datos del cliente</h2> <p><b>Nombre: </b> '+userName+'</p> <p><b>Correo: </b> '+userEmail+'</p> <p><b>Celular: </b> '+userPhone+'</p> <p>Favor de ponerse en contacto con el cliente a la brevedad</p>'
+     };
+
+    //enviamos el email
+    transporter.sendMail(mailOptions, function(error, info){
+    if (error){
+        console.log("Email no enviado");
+    } else {
+        console.log("Email enviado");
+    }});
+  }
+
+  if (userTema == 'Integration & Development'){
+    //email donde se enviará el correo
+    var mailOptions = {
+       from: 'IBM Surveys <surveysibm@gmail.com>',
+       to: '',
+       subject: 'Datos de cliente - Integration & Development',
+       html: '<h2>Datos del cliente</h2> <p><b>Nombre: </b> '+userName+'</p> <p><b>Correo: </b> '+userEmail+'</p> <p><b>Celular: </b> '+userPhone+'</p> <p>Favor de ponerse en contacto con el cliente a la brevedad</p>'
+     };
+
+    //enviamos el email
+    transporter.sendMail(mailOptions, function(error, info){
+    if (error){
+        console.log("Email no enviado");
+    } else {
+        console.log("Email enviado");
+    }});
+  }
+
+  if (userTema == 'Management & Platform'){
+    //email donde se enviará el correo
+    var mailOptions = {
+       from: 'IBM Surveys <surveysibm@gmail.com>',
+       to: '',
+       subject: 'Datos de cliente - Management & Platform',
+       html: '<h2>Datos del cliente</h2> <p><b>Nombre: </b> '+userName+'</p> <p><b>Correo: </b> '+userEmail+'</p> <p><b>Celular: </b> '+userPhone+'</p> <p>Favor de ponerse en contacto con el cliente a la brevedad</p>'
+     };
+
+    //enviamos el email
+    transporter.sendMail(mailOptions, function(error, info){
+    if (error){
+        console.log("Email no enviado");
+    } else {
+        console.log("Email enviado");
+    }});
+  }
+
+  if (userTema == 'IBM z Hybrid Cloud'){
+    //email donde se enviará el correo
+    var mailOptions = {
+       from: 'IBM Surveys <surveysibm@gmail.com>',
+       to: '',
+       subject: 'Datos de cliente - IBM z Hybrid Cloud',
+       html: '<h2>Datos del cliente</h2> <p><b>Nombre: </b> '+userName+'</p> <p><b>Correo: </b> '+userEmail+'</p> <p><b>Celular: </b> '+userPhone+'</p> <p>Favor de ponerse en contacto con el cliente a la brevedad</p>'
+     };
+
+    //enviamos el email
+    transporter.sendMail(mailOptions, function(error, info){
+    if (error){
+        console.log("Email no enviado");
+    } else {
+        console.log("Email enviado");
+    }});
+  }
+
+  if (userTema == 'Watson & Cloud Platform'){
+    //email donde se enviará el correo
+    var mailOptions = {
+       from: 'IBM Surveys <surveysibm@gmail.com>',
+       to: '',
+       subject: 'Datos de cliente - Watson & Cloud Platform',
+       html: '<h2>Datos del cliente</h2> <p><b>Nombre: </b> '+userName+'</p> <p><b>Correo: </b> '+userEmail+'</p> <p><b>Celular: </b> '+userPhone+'</p> <p>Favor de ponerse en contacto con el cliente a la brevedad</p>'
+     };
+
+    //enviamos el email
+    transporter.sendMail(mailOptions, function(error, info){
+    if (error){
+        console.log("Email no enviado");
+    } else {
+        console.log("Email enviado");
+    }});
+  }
+
+  //Confirmamos si hay o no base de datos
   if(!mydb) {
     console.log("No database.");
     response.send("Hello " + userName + "!");
@@ -28,6 +192,7 @@ app.post("/api/visitors", function (request, response) {
   }
   // insert the username as a document
   mydb.insert({
+                "tema" : userTema,
                 "name" : userName,
                 "email" : userEmail,
                 "phone" : userPhone
@@ -39,18 +204,9 @@ app.post("/api/visitors", function (request, response) {
   });
 });
 
-/**
- * Endpoint to get a JSON array of all the visitors in the database
- * REST API example:
- * <code>
- * GET http://localhost:3000/api/visitors
- * </code>
- *
- * Response:
- * [ "Bob", "Jane" ]
- * @return An array of all the visitor names
- */
-app.get("/api/visitors", function (request, response) {
+// Returns an array of all the users in the DB
+app.get("/api/get_people", function (request, response) {
+  var json_string_for_csv_conversion = new Array();
   var people = [];
   // In case DB doesn't load
   if(!mydb) {
@@ -60,15 +216,49 @@ app.get("/api/visitors", function (request, response) {
 
   mydb.list({ include_docs: true }, function(err, body) {
     if (!err) {
-      body.rows.forEach(function(row) {
-        if(row.doc.name)
+      body.rows.forEach(function(row, index) {
+        if(row.doc.name){
+          json_string_for_csv_conversion.push(row.doc);
           people.push(row.doc);
+        }
+      });
+      var download_filename = "people.csv";
+      var fields = ['tema', 'name', 'email', 'phone']; // Column headers
+      json2csv({data: json_string_for_csv_conversion, fields: fields }, function(err, csv) {
+				if (err) console.log(err);
+				fs.writeFile(download_filename, csv, function(err) {
+					if (err) throw err;
+					fs.readdir(__dirname, function (err, files) {
+						if (err)
+							throw err;
+						for (var index in files) {
+							if(files[index] === download_filename)
+								console.log(download_filename + " is present");
+						}
+					});
+				});
       });
       response.json(people);
     }
   });
 });
 
+// Downloads people.csv
+app.get('/api/download_csv', function(req, res){
+  var fileName = __dirname + '\/' + "people.csv";
+  res.download(fileName);
+});
+
+app.get('/myform', function(req, res){
+    var usuario = req.query.user; //mytext is the name of your input box
+    var password = req.query.pass;
+
+    if (usuario == 'admin' && password == '1234'){
+    res.sendFile(__dirname + '/views/csv.html');
+  }else {
+        res.sendFile(__dirname + '/views/index.html');
+      }
+});
 
 // load local VCAP configuration  and service credentials
 var vcapLocal;
@@ -97,13 +287,13 @@ if (appEnv.services['cloudantNoSQLDB'] || appEnv.getService(/cloudant/)) {
   //database name
   var dbName = 'names_database';
 
-  // Create a new "mydb" database.
+  // Create a new "names_database" database in case it doesn't exist
   cloudant.db.create(dbName, function(err, data) {
     if(!err) //err if database doesn't already exists
       console.log("Created database: " + dbName);
   });
 
-  // Specify the database we are going to use (mydb)...
+  // Specify the database we are going to use (names_database)...
   mydb = cloudant.db.use(dbName);
 }
 
