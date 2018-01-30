@@ -6,6 +6,10 @@ var json2csv = require('json2csv');
 var fs = require('fs');
 var nodemailer = require('nodemailer');
 
+app.use(express.static(__dirname + '/views', {
+  extensions: ['html']
+}));
+
 //Ejecución del email
 exports.sendEmail = function(req, res){
     // nodemailer stuff will go here
@@ -49,7 +53,7 @@ else {
     //email donde se enviará el correo
     var mailOptions = {
        from: 'IBM Surveys <surveysibm@gmail.com>',
-       to: '',
+       to: 'julio.cesar.garcia@ibm.com',
        subject: 'Datos de cliente - Hybrid Data Management',
        html: '<h2>Datos del cliente</h2> <p><b>Nombre: </b> '+userName+'</p> <p><b>Correo: </b> '+userEmail+'</p> <p><b>Celular: </b> '+userPhone+'</p> <p>Favor de ponerse en contacto con el cliente a la brevedad</p>'
      };
