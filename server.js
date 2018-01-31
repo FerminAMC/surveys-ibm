@@ -1,12 +1,13 @@
 var express = require("express");
-var app = express();
 var cfenv = require("cfenv");
 var bodyParser = require('body-parser');
 var json2csv = require('json2csv');
 var fs = require('fs');
 var nodemailer = require('nodemailer');
 
-app.use(express.static(__dirname + '/views', {
+var app = express();
+
+app.use(express.static(__dirname + '/views/', {
   extensions: ['html']
 }));
 
@@ -34,6 +35,7 @@ var mydb;
 
 // Post user information to the DB
 app.post("/api/add_person", function (request, response) {
+
   var userTema = request.body.tema;
   var userName = request.body.name;
   var userEmail = request.body.email;
@@ -53,7 +55,7 @@ else {
     //email donde se enviará el correo
     var mailOptions = {
        from: 'IBM Surveys <surveysibm@gmail.com>',
-       to: 'julio.cesar.garcia@ibm.com',
+       to: 'aleruiz@mx1.ibm.com',
        subject: 'Datos de cliente - Hybrid Data Management',
        html: '<h2>Datos del cliente</h2> <p><b>Nombre: </b> '+userName+'</p> <p><b>Correo: </b> '+userEmail+'</p> <p><b>Celular: </b> '+userPhone+'</p> <p>Favor de ponerse en contacto con el cliente a la brevedad</p>'
      };
@@ -71,7 +73,7 @@ else {
     //email donde se enviará el correo
     var mailOptions = {
        from: 'IBM Surveys <surveysibm@gmail.com>',
-       to: '',
+       to: 'aleruiz@mx1.ibm.com',
        subject: 'Datos de cliente - Unified Governance & Integration',
        html: '<h2>Datos del cliente</h2> <p><b>Nombre: </b> '+userName+'</p> <p><b>Correo: </b> '+userEmail+'</p> <p><b>Celular: </b> '+userPhone+'</p> <p>Favor de ponerse en contacto con el cliente a la brevedad</p>'
      };
@@ -89,7 +91,7 @@ else {
     //email donde se enviará el correo
     var mailOptions = {
        from: 'IBM Surveys <surveysibm@gmail.com>',
-       to: '',
+       to: 'aleruiz@mx1.ibm.com',
        subject: 'Datos de cliente - Data Science & Business Analytics',
        html: '<h2>Datos del cliente</h2> <p><b>Nombre: </b> '+userName+'</p> <p><b>Correo: </b> '+userEmail+'</p> <p><b>Celular: </b> '+userPhone+'</p> <p>Favor de ponerse en contacto con el cliente a la brevedad</p>'
      };
@@ -107,7 +109,7 @@ else {
     //email donde se enviará el correo
     var mailOptions = {
        from: 'IBM Surveys <surveysibm@gmail.com>',
-       to: '',
+       to: 'aleruiz@mx1.ibm.com',
        subject: 'Datos de cliente - Digital Business Automation',
        html: '<h2>Datos del cliente</h2> <p><b>Nombre: </b> '+userName+'</p> <p><b>Correo: </b> '+userEmail+'</p> <p><b>Celular: </b> '+userPhone+'</p> <p>Favor de ponerse en contacto con el cliente a la brevedad</p>'
      };
@@ -125,7 +127,7 @@ else {
     //email donde se enviará el correo
     var mailOptions = {
        from: 'IBM Surveys <surveysibm@gmail.com>',
-       to: '',
+       to: 'aleruiz@mx1.ibm.com',
        subject: 'Datos de cliente - Integration & Development',
        html: '<h2>Datos del cliente</h2> <p><b>Nombre: </b> '+userName+'</p> <p><b>Correo: </b> '+userEmail+'</p> <p><b>Celular: </b> '+userPhone+'</p> <p>Favor de ponerse en contacto con el cliente a la brevedad</p>'
      };
@@ -143,7 +145,7 @@ else {
     //email donde se enviará el correo
     var mailOptions = {
        from: 'IBM Surveys <surveysibm@gmail.com>',
-       to: '',
+       to: 'aleruiz@mx1.ibm.com',
        subject: 'Datos de cliente - Management & Platform',
        html: '<h2>Datos del cliente</h2> <p><b>Nombre: </b> '+userName+'</p> <p><b>Correo: </b> '+userEmail+'</p> <p><b>Celular: </b> '+userPhone+'</p> <p>Favor de ponerse en contacto con el cliente a la brevedad</p>'
      };
@@ -161,7 +163,7 @@ else {
     //email donde se enviará el correo
     var mailOptions = {
        from: 'IBM Surveys <surveysibm@gmail.com>',
-       to: '',
+       to: 'aleruiz@mx1.ibm.com',
        subject: 'Datos de cliente - IBM z Hybrid Cloud',
        html: '<h2>Datos del cliente</h2> <p><b>Nombre: </b> '+userName+'</p> <p><b>Correo: </b> '+userEmail+'</p> <p><b>Celular: </b> '+userPhone+'</p> <p>Favor de ponerse en contacto con el cliente a la brevedad</p>'
      };
@@ -179,7 +181,7 @@ else {
     //email donde se enviará el correo
     var mailOptions = {
        from: 'IBM Surveys <surveysibm@gmail.com>',
-       to: '',
+       to: 'aleruiz@mx1.ibm.com',
        subject: 'Datos de cliente - Watson & Cloud Platform',
        html: '<h2>Datos del cliente</h2> <p><b>Nombre: </b> '+userName+'</p> <p><b>Correo: </b> '+userEmail+'</p> <p><b>Celular: </b> '+userPhone+'</p> <p>Favor de ponerse en contacto con el cliente a la brevedad</p>'
      };
@@ -260,9 +262,9 @@ app.get('/api/download_csv', function(req, res){
   res.download(fileName);
 });
 
-app.get('/myform', function(req, res){
-    var usuario = req.query.user; //mytext is the name of your input box
-    var password = req.query.pass;
+app.post('/myform', function(req, res){
+    var usuario = req.body.user; //mytext is the name of your input box
+    var password = req.body.pass;
 
     if (usuario == 'admin' && password == '1234'){
     res.sendFile(__dirname + '/views/csv.html');
