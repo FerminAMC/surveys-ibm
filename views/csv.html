@@ -57,22 +57,24 @@
 
         //Retreive all people from the database
         function getPeople() {
-           var temas = [];
-            var names = [];
-            var emails = [];
-            var phones = [];
+          var temas = [];
+          var nombres = [];
+          var correos = [];
+          var celulares = [];
+          var fechas_registro = [];
           $.get("./api/get_people")
               .done(function(data) {
                   if(data.length > 0) {
                     data.forEach(function(element, index) {
                       temas.push(AntiXSS.sanitizeInput(JSON.stringify(element.tema)));
-                      names.push(AntiXSS.sanitizeInput(JSON.stringify(element.name)));
-                      emails.push(AntiXSS.sanitizeInput(JSON.stringify(element.email)));
-                      phones.push(AntiXSS.sanitizeInput(JSON.stringify(element.phone)));
+                      nombres.push(AntiXSS.sanitizeInput(JSON.stringify(element.nombre)));
+                      correos.push(AntiXSS.sanitizeInput(JSON.stringify(element.correo)));
+                      celulares.push(AntiXSS.sanitizeInput(JSON.stringify(element.celular)));
+                      fechas_registro.push(AntiXSS.sanitizeInput(JSON.stringify(element.fecha_registro)));
                     });
                   }
               });
-            return(tema, names, emails, phones);
+            return(tema, nombres, correos, celulares, fechas_registro);
           }
 
           getPeople()
