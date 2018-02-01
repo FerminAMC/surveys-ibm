@@ -26,7 +26,7 @@
         <h1>Bienvenido.</h1>
         <form id="nameInput">
             <h2>Tema de interés: </h2>
-            <select class="form-control form-control-lg" name"tema" id="tema">
+            <select class="form-control form-control-lg" name"tema" id="tema" onChange="getSelectValue();">
             <option value="Hybrid Data Management">Hybrid Data Management</option>
             <option value="Unified Governance & Integration">Unified Governance & Integration</option>
             <option value="Data Science & Business Analytics">Data Science & Business Analytics</option>
@@ -35,7 +35,54 @@
             <option value="Management & Platform">Management & Platform</option>
             <option value="IBM z Hybrid Cloud">IBM z Hybrid Cloude</option>
             <option value="Watson & Cloud Platform">Watson & Cloud Platform</option>
-          </select>
+            </select>
+            <textarea type="text" class="form-control form-control-lg" id="des" disabled>IBM Hybrid Data Management ofrece un conjunto completo de capacidades para recopilar, gestionar y proporcionar acceso a datos a escala. Traduce las consultas entre proveedores, idiomas y estructuras para que los arquitectos empresariales puedan construir la base adecuada para sus datos y obtener información procesable sobre el comportamiento del cliente y las oportunidades de mercado para aumentar la cuota de mercado, reducir costos y brindar un servicio al cliente superior.</textarea>
+            <script>
+            function getSelectValue()
+            {
+              var selectedValue = document.getElementById("tema").value;
+
+              if (selectedValue == 'Hybrid Data Management')
+              {
+                document.getElementById("des").value = "IBM Hybrid Data Management ofrece un conjunto completo de capacidades para recopilar, gestionar y proporcionar acceso a datos a escala. Traduce las consultas entre proveedores, idiomas y estructuras para que los arquitectos empresariales puedan construir la base adecuada para sus datos y obtener información procesable sobre el comportamiento del cliente y las oportunidades de mercado para aumentar la cuota de mercado, reducir costos y brindar un servicio al cliente superior.";
+              }
+
+              if (selectedValue == 'Unified Governance & Integration')
+              {
+                document.getElementById("des").value = "Las soluciones de la plataforma Unified Governance & Integration permiten saber que sus datos son correctos y están disponibles para cada usuario, quienes confían en sus datos para brindar eficiencia y protección, y usan sus datos para impulsar la transformación e innovación empresarial.";
+              }
+
+              if (selectedValue == 'Data Science & Business Analytics')
+              {
+                document.getElementById("des").value = "Transforme sus datos en un valor comercial tangible con la última tecnología, más flexible y abierta. Permita que sus científicos de datos, ingenieros de datos, ingenieros de aprendizaje automático y analistas colaboren con las mejores herramientas de código abierto y herramientas visuales, junto con las opciones de implementación más flexibles y escalables. Combine modelos de aprendizaje automático con modelado prescriptivo avanzado para optimizar decisiones empresariales complejas. Utilice capacidades rápidas de modelado visual sin codificación, capacidades avanzadas de preparación de datos y maneje automáticamente problemas comunes de calidad de datos. Lleve su análisis a los datos que se encuentran detrás de su cortafuegos e incorpore fácilmente fuentes y datos de aplicaciones en la nube.";
+              }
+
+              if (selectedValue == 'Digital Business Automation')
+              {
+                document.getElementById("des").value = "Una plataforma de automatización de negocios le permite digitalizar y automatizar operaciones enteras de front-office y back-office con velocidad y escala. La plataforma Digital Business Automation de IBM es una plataforma de automatización flexible que automatiza tareas humanas repetitivas, gestión de contenido, flujos de trabajo de procesos, captura de datos y decisiones comerciales.";
+              }
+
+              if (selectedValue == 'Integration & Development')
+              {
+                document.getElementById("des").value = "Integre aplicaciones, datos y dispositivos para superar las expectativas del cliente. Impulse la transformación digital y los resultados comerciales mediante el desarrollo de soluciones de integración híbrida para su nube y aplicaciones locales.";
+              }
+
+              if (selectedValue == 'Management & Platform')
+              {
+                document.getElementById("des").value = "Management & Platform lo ayuda a administrar los datos en múltiples cargas de trabajo, a la vez que reduce los costos de administración, almacenamiento, desarrollo y servidores. Nuestras soluciones de alto rendimiento gestionan los datos desde los requisitos hasta su retirada, y pueden garantizar la privacidad y la integridad de sus datos.";
+              }
+
+              if (selectedValue == 'IBM z Hybrid Cloud')
+              {
+                document.getElementById("des").value = "IBM z ofrece un modelo de implementación rápida para agilizar los ingresos, un entorno altamente seguro y confiable para proteger de violaciones y una pila de software abierta para la más amplia variedad de aplicaciones.";
+              }
+
+              if (selectedValue == 'Watson & Cloud Platform')
+              {
+                document.getElementById("des").value = "Watson & Cloud Platform le permite integrar la IA más poderosa del mundo en su aplicación y almacenar, entrenar y administrar sus datos en la nube más segura.";
+              }
+            }
+            </script>
             <h2>Por favor, completa tus datos:</h2>
             <div class="form-group">
                 <input type="text" class="form-control form-control-lg" id="name" name="name" placeholder="mi nombre">
