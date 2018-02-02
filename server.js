@@ -204,7 +204,7 @@ app.post("/api/add_person", function (request, response) {
     if (err) {
       return console.log('[mydb.insert] ', err.message);
     }
-    response.send("Hola " + userName + "! Gracias por registrarte.");
+    response.send("¡Hola, " + userName + "! Gracias por registrarte.");
   });
 });
 

@@ -98,13 +98,13 @@
         <p id="response" class="lead text-center"></p>
         <div class='row mb-3'>
             <div class='col text-center'>
-                <a href="https://www.facebook.com/ibm.mexico/"><i class="fa fa-facebook" ></i></a>
+                <a target="_blank" href="https://www.facebook.com/ibm.mexico/"><i class="fa fa-3x fa-facebook" ></i></a>
             </div>
             <div class='col text-center'>
-                <a href="https://twitter.com/ibm_mx"><i class="fa fa-twitter" ></i></a>
+                <a target="_blank" href="https://twitter.com/ibm_mx"><i class="fa fa-3x fa-twitter" ></i></a>
             </div>
             <div class='col text-center'>
-                <a href="https://www.linkedin.com/company/ibm_mexico"><i class="fa fa-linkedin" ></i></a>
+                <a target="_blank" href="https://www.linkedin.com/company/ibm_mexico"><i class="fa fa-3x fa-linkedin" ></i></a>
             </div>
         </div>
         <p id="databaseNames" class="lead text-center"></p>
@@ -151,6 +151,7 @@
             var tema = $('#tema').val();
             var errors = validate($('#nameInput'), constraints);
             if (errors) return;
+            var tema = $('#tema').val();
             var name = $('#name').val();
             var phone = $('#phone').val();
             var email = $('#email').val();
