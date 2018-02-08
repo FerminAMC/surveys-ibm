@@ -203,6 +203,7 @@ app.post("/api/add_person", function (request, response) {
               }, function(err, body, header) {
     if (err) {
       return console.log('[mydb.insert] ', err.message);
+      response.send("Usuario no registrado. Favor de revisar tus datos.");
     }
     response.send("¡Hola, " + userName + "! Gracias por registrarte.");
   });
@@ -258,7 +259,7 @@ app.post('/myform', function(req, res){
     var usuario = req.body.user; //mytext is the name of your input box
     var password = req.body.pass;
 
-    if (usuario == 'admin' && password == '1234'){
+    if (usuario == 'aleruiz@mx1.ibm.com' && password == 'ibm33ibm'){
     res.sendFile(__dirname + '/views/csv.html');
   }else {
         res.sendFile(__dirname + '/views/index.html');
