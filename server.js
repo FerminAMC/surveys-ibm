@@ -26,10 +26,10 @@ var transporter = nodemailer.createTransport({
 });
 
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // parse application/json
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
 var mydb;
 
@@ -41,11 +41,12 @@ app.post("/api/add_person", function (request, response) {
   var userEmail = request.body.email;
   var userPhone = request.body.phone;
   var registrationDate = new Date();
+  var mailOptions;
 
   //Enviamos correos segun el tema ingresado en el formulario
   if (userTema == 'Hybrid Data Management'){
     //email donde se enviará el correo
-    var mailOptions = {
+    mailOptions = {
        from: 'IBM Surveys <surveysibm@gmail.com>',
        to: 'aleruiz@mx1.ibm.com',
        subject: 'Datos de cliente - Hybrid Data Management',
@@ -63,7 +64,7 @@ app.post("/api/add_person", function (request, response) {
 
   if (userTema == 'Unified Governance & Integration'){
     //email donde se enviará el correo
-    var mailOptions = {
+    mailOptions = {
        from: 'IBM Surveys <surveysibm@gmail.com>',
        to: 'aleruiz@mx1.ibm.com',
        subject: 'Datos de cliente - Unified Governance & Integration',
@@ -81,7 +82,7 @@ app.post("/api/add_person", function (request, response) {
 
   if (userTema == 'Data Science & Business Analytics'){
     //email donde se enviará el correo
-    var mailOptions = {
+    mailOptions = {
        from: 'IBM Surveys <surveysibm@gmail.com>',
        to: 'aleruiz@mx1.ibm.com',
        subject: 'Datos de cliente - Data Science & Business Analytics',
@@ -99,7 +100,7 @@ app.post("/api/add_person", function (request, response) {
 
   if (userTema == 'Digital Business Automation'){
     //email donde se enviará el correo
-    var mailOptions = {
+    mailOptions = {
        from: 'IBM Surveys <surveysibm@gmail.com>',
        to: 'aleruiz@mx1.ibm.com',
        subject: 'Datos de cliente - Digital Business Automation',
@@ -117,7 +118,7 @@ app.post("/api/add_person", function (request, response) {
 
   if (userTema == 'Integration & Development'){
     //email donde se enviará el correo
-    var mailOptions = {
+    mailOptions = {
        from: 'IBM Surveys <surveysibm@gmail.com>',
        to: 'aleruiz@mx1.ibm.com',
        subject: 'Datos de cliente - Integration & Development',
@@ -135,7 +136,7 @@ app.post("/api/add_person", function (request, response) {
 
   if (userTema == 'Management & Platform'){
     //email donde se enviará el correo
-    var mailOptions = {
+    mailOptions = {
        from: 'IBM Surveys <surveysibm@gmail.com>',
        to: 'aleruiz@mx1.ibm.com',
        subject: 'Datos de cliente - Management & Platform',
@@ -153,7 +154,7 @@ app.post("/api/add_person", function (request, response) {
 
   if (userTema == 'IBM z Hybrid Cloud'){
     //email donde se enviará el correo
-    var mailOptions = {
+    mailOptions = {
        from: 'IBM Surveys <surveysibm@gmail.com>',
        to: 'aleruiz@mx1.ibm.com',
        subject: 'Datos de cliente - IBM z Hybrid Cloud',
@@ -171,7 +172,7 @@ app.post("/api/add_person", function (request, response) {
 
   if (userTema == 'Watson & Cloud Platform'){
     //email donde se enviará el correo
-    var mailOptions = {
+    mailOptions = {
        from: 'IBM Surveys <surveysibm@gmail.com>',
        to: 'aleruiz@mx1.ibm.com',
        subject: 'Datos de cliente - Watson & Cloud Platform',
@@ -211,7 +212,7 @@ app.post("/api/add_person", function (request, response) {
 
 // Returns an array of all the users in the DB
 app.get("/api/get_people", function (request, response) {
-  var json_string_for_csv_conversion = new Array();
+  var json_string_for_csv_conversion = [];
   var people = [];
   // In case DB doesn't load
   if(!mydb) {
@@ -273,18 +274,18 @@ try {
   console.log("Loaded local VCAP", vcapLocal);
 } catch (e) { }
 
-const appEnvOpts = vcapLocal ? { vcap: vcapLocal} : {}
+var appEnvOpts = vcapLocal ? { vcap: vcapLocal} : {};
 
-const appEnv = cfenv.getAppEnv(appEnvOpts);
+var appEnv = cfenv.getAppEnv(appEnvOpts);
 
-if (appEnv.services['cloudantNoSQLDB'] || appEnv.getService(/cloudant/)) {
+if (appEnv.services.cloudantNoSQLDB || appEnv.getService(/cloudant/)) {
   // Load the Cloudant library.
   var Cloudant = require('cloudant');
 
   // Initialize database with credentials
-  if (appEnv.services['cloudantNoSQLDB']) {
+  if (appEnv.services.cloudantNoSQLDB) {
      // CF service named 'cloudantNoSQLDB'
-     var cloudant = Cloudant(appEnv.services['cloudantNoSQLDB'][0].credentials);
+     var cloudant = Cloudant(appEnv.services.cloudantNoSQLDB[0].credentials);
   } else {
      // user-provided service with 'cloudant' in its name
      var cloudant = Cloudant(appEnv.getService(/cloudant/).credentials);
@@ -308,7 +309,7 @@ app.use(express.static(__dirname + '/views'));
 
 
 
-var port = process.env.PORT || 3000
+var port = process.env.PORT || 3000;
 app.listen(port, function() {
     console.log("To view your app, open this link in your browser: http://localhost:" + port);
 });

@@ -15,3 +15,7 @@ body{
 i {
   color:white;
 }
+
+i:hover {
+  cursor: pointer;
+}
