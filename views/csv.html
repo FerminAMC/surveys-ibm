@@ -5,6 +5,22 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+            th, td {
+                border: 1px black solid;
+                text-align: center;
+            }
+
+            th{
+              font-size: 20px;
+              height: 50px;
+            }
+
+            td{
+              font-size: 15px;
+            }
+
+        </style>
     <title>Surveys IBM - CSV</title>
 
     <!-- Bootstrap -->
@@ -21,7 +37,10 @@
         <img src="/images/ibm_cloud.png" width="120" height="30" alt=""></a>
       </nav>
 
-        <h1>Bienvenido</h1>
+        <h1>Bienvenida, Ale</h1>
+
+        <div id="tabla">
+        </div>
         <!-- Button to test csv download -->
         <div class="row mb-6">
           <button id="download_csv" class="btn btn-primary btn-block" type="button"> Descargar CSV </button>
@@ -62,6 +81,7 @@
           var correos = [];
           var celulares = [];
           var fechas_registro = [];
+          $('#tabla').append('<tr><th>Tema</th><th>Nombre</th><th>Correo</th><th>Celular</th><th>Fecha de Registro</th></tr>');
           $.get("./api/get_people")
               .done(function(data) {
                   if(data.length > 0) {
@@ -71,14 +91,15 @@
                       correos.push(AntiXSS.sanitizeInput(JSON.stringify(element.correo)));
                       celulares.push(AntiXSS.sanitizeInput(JSON.stringify(element.celular)));
                       fechas_registro.push(AntiXSS.sanitizeInput(JSON.stringify(element.fecha_registro)));
+
+                      $('#tabla').append('<tr><td>&nbsp;&nbsp;&nbsp;' + element.tema + '&nbsp;&nbsp;&nbsp;</td>' + '<td>&nbsp;&nbsp;&nbsp;' +  element.nombre + '&nbsp;&nbsp;&nbsp;</td>' + '<td>&nbsp;&nbsp;&nbsp;' + element.correo + '&nbsp;&nbsp;&nbsp;</td>' + '<td>&nbsp;&nbsp;&nbsp;' + element.celular + '&nbsp;&nbsp;&nbsp;</td>' + '<td>&nbsp;&nbsp;&nbsp;' +element.fecha_registro + '&nbsp;&nbsp;&nbsp;</td></tr>');
                     });
+                      $('#tabla').append('<p></p>');
                   }
               });
-            return(tema, nombres, correos, celulares, fechas_registro);
+            //return(temas, nombres, correos, celulares, fechas_registro);
           }
-
-          getPeople()
-
+          getPeople();
 
     </script>
 </body>
