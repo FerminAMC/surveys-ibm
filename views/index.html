@@ -111,12 +111,15 @@
 
         }
 
+        //document.getElementById("submit").disabled = true;
+
         $("#email").on("change keyup", function() {
             var error = validate({email: $("#email").val()}, constraints);
             var swtch;
             if(error.email) {
                 swtch = true
                 $("#email").parent().children(".invalid-feedback").html(error.email);
+
             } else {
                 swtch = false
             }
@@ -129,6 +132,7 @@
             if(error.celular) {
                 swtch = true
                 $("#phone").parent().children(".invalid-feedback").html(error.celular);
+
             } else {
                 swtch = false
             }
@@ -141,6 +145,7 @@
             if(error.nombre) {
                 swtch = true
                 $("#name").parent().children(".invalid-feedback").html(error.nombre);
+
             } else {
                 swtch = false
             }
