@@ -37,7 +37,7 @@
                 </select>
             </div>
             <div class="form-group">
-                    <textarea type="text" class="form-control" id="des" disabled></textarea>
+                    <textarea rows="6" style="width:100%;" type="text" class="form-control form-control-lg" id="des" disabled></textarea>
             </div>
             <h3>Por favor, completa tus datos:</h3>
             <div class="form-group">
@@ -113,12 +113,15 @@
 
         }
 
+        //document.getElementById("submit").disabled = true;
+
         $("#email").on("change keyup", function() {
             var error = validate({email: $("#email").val()}, constraints);
             var swtch;
             if(error.email) {
                 swtch = true
                 $("#email").parent().children(".invalid-feedback").html(error.email);
+
             } else {
                 swtch = false
             }
@@ -131,6 +134,7 @@
             if(error.celular) {
                 swtch = true
                 $("#phone").parent().children(".invalid-feedback").html(error.celular);
+
             } else {
                 swtch = false
             }
@@ -143,6 +147,7 @@
             if(error.nombre) {
                 swtch = true
                 $("#name").parent().children(".invalid-feedback").html(error.nombre);
+
             } else {
                 swtch = false
             }
