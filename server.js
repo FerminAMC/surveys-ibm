@@ -40,8 +40,68 @@ app.post("/api/add_person", function (request, response) {
   var userName = request.body.name;
   var userEmail = request.body.email;
   var userPhone = request.body.phone;
-  var registrationDate = new Date();
+
   var mailOptions;
+
+  var registrationDate = new Date();
+
+  var n = registrationDate.getMonth();
+  var mes = '';
+  var dia = registrationDate.getUTCDate();
+  var año = registrationDate.getUTCFullYear();
+
+  if (n == 0){
+    mes = "Enero"
+  }
+
+  if (n == 1){
+    mes = "Febrero"
+  }
+
+  if (n == 2){
+    mes = "Marzo"
+  }
+
+  if (n == 3){
+    mes = "Abril"
+  }
+
+  if (n == 4){
+    mes = "Mayo"
+  }
+
+  if (n == 5){
+    mes = "Junio"
+  }
+
+  if (n == 6)
+  {
+    mes = "Julio"
+  }
+
+  if (n == 7){
+    mes = "Agosto"
+  }
+
+  if (n == 8){
+    mes = "Septiembre"
+  }
+
+  if (n == 9){
+    mes = "Octubre"
+  }
+
+  if (n == 10){
+    mes = "Noviembre"
+  }
+
+  if (n == 11){
+    mes = "Diciembre"
+  }
+
+  fecha = dia + " de " + mes + " de " + año;
+
+  console.log(fecha);
 
   //Enviamos correos segun el tema ingresado en el formulario
   if (userTema == 'Hybrid Data Management'){
@@ -200,7 +260,7 @@ app.post("/api/add_person", function (request, response) {
                 "nombre" : userName,
                 "correo" : userEmail,
                 "celular" : userPhone,
-                "fecha_registro" : registrationDate
+                "fecha_registro" : fecha
               }, function(err, body, header) {
     if (err) {
       return console.log('[mydb.insert] ', err.message);
